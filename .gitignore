@@ -1,4 +1,6 @@
 .idea/
 venv/
-__pycache__/
+filme/__pycache__/
+filme/migrations/__pycache__/
+Netflix/__pycache__/
 Planejamento.txt
