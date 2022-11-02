@@ -10,5 +10,20 @@
         <p>{{ object }}</p>
         <p>{{ object.descricao }}</p>
         <img src="{{ object.thumb.url}}">
+        {% for episodio in object.episodios.all %}
+            <a href="{{ episodio.video }}">
+                <p>{{ episodio }}</p>
+            </a>
+        {% endfor %}
+    </div>
+    <div class="py-10">
+        <h2>Filmes Relacionados</h2>
+        {% for filme in filmes_relacionados %}
+            <p>
+                <a href="{% url 'filme:detalhefilme' filme.id %}">
+                    {{ filme.titulo }}
+                </a>
+            </p>
+        {% endfor %}
     </div>
 {% endblock %}
