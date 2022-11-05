@@ -6,7 +6,8 @@ lista_categorias = (
     ("FICCAO CIENTIFICA", "Ficção Científica"),
     ("COMEDIA", "Comédia"),
     ("TERROR", "Terror"),
-    ("OUTROS", "Outros"),
+    ("COMEDIA DRAMATICA", "Comédia Dramática"),
+    ("ACAO", "Ação"),
 )
 
 
@@ -28,4 +29,4 @@ class Episodio(models.Model):
     video = models.URLField()
 
     def __str__(self):
-        return self.titulo
+        return self.filme.titulo + " - " + self.titulo

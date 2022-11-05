@@ -36,6 +36,28 @@
                         {{ object.descricao }}
                     </p>
                 </div>
+                <div style='margin-top:2rem;margin-bottom:2rem;'>
+                    {% if object.episodios.all|length > 1 %}
+                        <h2 class="text-gray-200 text-3xl font-medium">
+                            Episódios
+                        </h2>
+                        {% for episodio in object.episodios.all %}
+                            <h3 class='text-lg'>
+                                <a href="{{ episodio.video }}">
+                                    <p>Episódio {{ forloop.counter }}: {{ episodio }}</p>
+                                </a>
+                            </h3>
+                        {% endfor %}
+                    {% else %}
+                        {% for episodio in object.episodios.all %}
+                            <h2 class='text-gray-200 text-3xl font-medium'>
+                                <a href="{{ episodio.video }}">
+                                    <p>{{ episodio }}</p>
+                                </a>
+                            </h2>
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
         </section>
         <section class='bg-primary_black flex justify-center py-10'>
