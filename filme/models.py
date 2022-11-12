@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import AbstractUser
 
 lista_categorias = (
     ("FICCAO CIENTIFICA", "Ficção Científica"),
@@ -29,4 +29,8 @@ class Episodio(models.Model):
     video = models.URLField()
 
     def __str__(self):
-        return self.filme.titulo + " - " + self.titulo
+        return self.filme.titulo + " - " + self.titulo\
+
+
+class Usuario(AbstractUser):
+    filmes_vistos = models.ManyToManyField("Filme")
