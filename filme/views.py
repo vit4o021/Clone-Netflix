@@ -1,17 +1,25 @@
 from .models import Filme
 from django.views.generic import TemplateView, ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
 
 class Homepage(TemplateView):
     template_name = "homepage.html"
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('filme:homefilmes')
+        else:
+            return super().get(request, *args, **kwargs)
 
-class Homefilmes(ListView):
+
+class Homefilmes(LoginRequiredMixin, ListView):
     template_name = "homefilmes.html"
     model = Filme
 
 
-class Detalhefilme(DetailView):
+class Detalhefilme(LoginRequiredMixin, DetailView):
     template_name = "detalhefilme.html"
     model = Filme
 
@@ -19,6 +27,8 @@ class Detalhefilme(DetailView):
         filme = self.get_object()
         filme.visualizacoes += 1
         filme.save()
+        usuario = request.user
+        usuario.filmes_vistos.add(filme)
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -28,7 +38,7 @@ class Detalhefilme(DetailView):
         return context
 
 
-class Pesquisafilme(ListView):
+class Pesquisafilme(LoginRequiredMixin, ListView):
     template_name = "pesquisa.html"
     model = Filme
 
@@ -39,3 +49,7 @@ class Pesquisafilme(ListView):
             return object_list
         else:
             return None
+
+
+class Paginaperfil(LoginRequiredMixin, TemplateView):
+    template_name = "editarperfil.html"
